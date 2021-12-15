@@ -1,0 +1,5 @@
+pillow
+requests
+azure-storage-blob
+azure-keyvault-secrets
+azure-identity
