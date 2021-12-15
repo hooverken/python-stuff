@@ -11,4 +11,4 @@ URL = "https://github.com/hooverken/python-stuff/raw/main/20200912_12251-cropped
 response = get(URL)
 tf.write(response.content)
 print(tf.name)
-Image.open(tf.name).rotate(90).show()
+# Image.open(tf.name).rotate(90).show()
