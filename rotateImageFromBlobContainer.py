@@ -16,7 +16,7 @@ AZURE_BLOB='20200912_12251-cropped6.jpg'    # filename to read (for testing)
 
 token_credential = DefaultAzureCredential()
 
-blob_service_client = BlobServiceClient(
+blob_service_client = BlobServiceClient.get_blob_client(
     account_url="https://" + AZURE_STORAGE_ACCOUNT_NAME + ".blob.core.windows.net",
     credential=token_credential
 )
@@ -26,7 +26,7 @@ blob_service_client = BlobServiceClient(
 tempFile = tempfile.NamedTemporaryFile()
 
 with open(tempFile.name, "wb") as my_blob:
-    blob_data = blob_service_client.download_blob()
+    blob_data = blob_service_client.download_blob(my_blob)
     blob_data.readinto(my_blob)
 
 print(tempFile.name)

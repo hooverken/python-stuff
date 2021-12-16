@@ -2,9 +2,9 @@ param dockerHubSourceImage string = 'kenhoover/testrepo:ken'
 
 param containerGroupName string = 'testContainerGroup1'
 
-param storageAccountName string = 'kentosobatchstorageacct'
+param storageAccountName string
 param managedIdentityName string = 'KentosoContainerImagesIdentity'
-param inputContainername string = 'input'
+param inputContainerName string = 'input'
 param outputContainerName string = 'output'
 
 param cpuCount int = 1
@@ -42,7 +42,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-03-01'
             }
             {
               name: 'INPUTCONTAINERNAME'
-              value: inputContainername
+              value: inputContainerName
             }
             {
               name: 'OUTPUTCONTAINERNAME'
