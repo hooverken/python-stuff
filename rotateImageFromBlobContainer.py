@@ -21,12 +21,12 @@ blob_service_client = BlobServiceClient(
     credential=token_credential
 )
 
-blob_client = BlobServiceClient.from_blob_url(blob_url=BlobServiceClient.url, container_name = AZURE_INPUT_CONTAINER, blob_name = AZURE_BLOB, credential = token_credential)
+# blob_service_client = BlobServiceClient.from_blob_url(blob_url=BlobServiceClient.url, container_name = AZURE_INPUT_CONTAINER, blob_name = AZURE_BLOB, credential = token_credential)
 
 tempFile = tempfile.NamedTemporaryFile()
 
 with open(tempFile.name, "wb") as my_blob:
-    blob_data = blob_client.download_blob()
+    blob_data = blob_service_client.download_blob()
     blob_data.readinto(my_blob)
 
 print(tempFile.name)
