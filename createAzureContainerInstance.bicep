@@ -3,8 +3,7 @@ param dockerHubSourceImage string = 'kenhoover/testrepo:ken'
 param containerGroupName string = 'testContainerGroup1'
 
 param storageAccountName string = 'kentosobatchstorageacct'
-@secure()
-param storageAccountKey string
+param managedIdentityName string = 'KentosoContainerImagesIdentity'
 param inputContainername string = 'input'
 param outputContainerName string = 'output'
 
@@ -16,12 +15,20 @@ param logAnalyticsWorkspaceId string = 'ba334b8f-3187-4f68-837b-645393b2b81b'  /
 @secure()
 param logAnalyticsWorkspaceKey string
 
-resource symbolicname 'Microsoft.ContainerInstance/containerGroups@2021-03-01' = {
+
+resource containerUserIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' existing = {
+  name: managedIdentityName
+}
+
+resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-03-01' = {
   name: containerGroupName
   location: resourceGroup().location
   tags: {}
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${containerUserIdentity.id}': {}
+    }
   }
   properties: {
     containers: [
@@ -31,11 +38,7 @@ resource symbolicname 'Microsoft.ContainerInstance/containerGroups@2021-03-01' =
           environmentVariables: [
             {
               name: 'STORAGEACCOUNTNAME'
-              value: storageAccountName
-            }
-            {
-              name: 'STORAGEACCOUNTKEY'
-              secureValue: storageAccountKey
+              secureValue: storageAccountName
             }
             {
               name: 'INPUTCONTAINERNAME'

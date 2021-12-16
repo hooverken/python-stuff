@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY go.sh .
 
-CMD [ "bash", "go.sh" ]
+ENTRYPOINT [ "bash", "go.sh" ]
