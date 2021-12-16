@@ -16,7 +16,7 @@ param logAnalyticsWorkspaceId string = 'ba334b8f-3187-4f68-837b-645393b2b81b'  /
 @secure()
 param logAnalyticsWorkspaceKey string
 
-resource symbolicname 'Microsoft.ContainerInstance/containerGroups@2021-07-01' = {
+resource symbolicname 'Microsoft.ContainerInstance/containerGroups@2021-03-01' = {
   name: containerGroupName
   location: resourceGroup().location
   tags: {}

@@ -5,6 +5,7 @@ import os
 import tempfile
 from PIL import Image
 from requests import get
+from datetime import datetime, timedelta
 from azure.storage import (
     AccessPolicy,
     ResourceTypes,
@@ -21,7 +22,7 @@ from azure.storage.blob import (
 # Set these four environment variables in the container configuration
 AZURE_ACC_NAME = os.environ['STORAGEACCOUNTNAME']           # the name of the storage account
 AZURE_PRIMARY_KEY = os.environ['STORAGEACCOUNTKEY']         # the storage account's key
-AZURE_INPUT_CONTAINER = os.environ['INPUTCONTAINERNAME']         # the name of the container to read from
+AZURE_INPUT_CONTAINER = os.environ['INPUTCONTAINERNAME']    # the name of the container to read from
 AZURE_OUTPUT_CONTAINER = os.environ['OUTPUTCONTAINERNAME']  # the name of the container to write to
 
 AZURE_BLOB='20200912_12251-cropped6.jpg'    # filename to read (for testing)
