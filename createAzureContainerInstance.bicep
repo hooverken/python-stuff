@@ -3,9 +3,9 @@ param containerGroupName string = 'testContainerGroup1'
 param dockerHubSourceImage string = 'kentosocontainerregistrywestus3.azurecr.io/hooverkenpythonstuff:2'
 param imageRegistryServer string = 'kentosocontainerregistrywestus3.azurecr.io'
 param imageRegistryUsername string = 'KentosoContainerRegistryWestUS3'
+
 @secure()
 param imageRegistryPassword string
-
 
 param storageAccountName string
 param managedIdentityName string = 'KentosoContainerImagesIdentity'
@@ -73,9 +73,9 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-03-01'
     }
     imageRegistryCredentials: [
       {
-        password: imageRegistryPassword
         server: imageRegistryServer
         username: imageRegistryUsername
+        password: imageRegistryPassword      
       }
     ]
     osType: 'Linux'
