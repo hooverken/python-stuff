@@ -14,14 +14,9 @@ AZURE_OUTPUT_CONTAINER = os.environ['OUTPUTCONTAINERNAME']      # the name of th
 
 AZURE_BLOB='20200912_12251-cropped6.jpg'    # filename to read (for testing)
 
-token_credential = DefaultAzureCredential()
+default_credential = DefaultAzureCredential()
 
-# blob_service_client = BlobServiceClient.get_blob_client(
-#     account_url="https://" + AZURE_STORAGE_ACCOUNT_NAME + ".blob.core.windows.net",
-#     credential=token_credential
-# )
-
-blob_service_client = BlobServiceClient(account_url=self.oauth_url, credential=token_credential)
+blob_service_client = BlobServiceClient(account_url=f"https://{AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net", credential=default_credential)
 
 tempFile = tempfile.NamedTemporaryFile()
 
@@ -32,4 +27,4 @@ except ResourceNotFoundError:
     print("Blob not found.")
 
 print(tempFile.name)
-Image.open(tempFile.name).show()
+print(blob_data.name)

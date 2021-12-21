@@ -1,11 +1,13 @@
 param containerGroupName string = 'testContainerGroup1'
 
-param dockerHubSourceImage string = 'kentosocontainerregistrywestus3.azurecr.io/hooverkenpythonstuff:2'
-param imageRegistryServer string = 'kentosocontainerregistrywestus3.azurecr.io'
-param imageRegistryUsername string = 'KentosoContainerRegistryWestUS3'
+// param dockerHubSourceImage string = 'kentosocontainerregistrywestus3.azurecr.io/hooverkenpythonstuff:4'
+param dockerHubSourceImage string = 'kenhoover/testrepo:ken'
 
-@secure()
-param imageRegistryPassword string
+// param imageRegistryServer string = 'kentosocontainerregistrywestus3.azurecr.io'
+// param imageRegistryUsername string = 'KentosoContainerRegistryWestUS3'
+
+// @secure()
+// param imageRegistryPassword string
 
 param storageAccountName string
 param managedIdentityName string = 'KentosoContainerImagesIdentity'
@@ -71,13 +73,13 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-03-01'
         workspaceKey: logAnalyticsWorkspaceKey
       }
     }
-    imageRegistryCredentials: [
-      {
-        server: imageRegistryServer
-        username: imageRegistryUsername
-        password: imageRegistryPassword      
-      }
-    ]
+    // imageRegistryCredentials: [
+    //   {
+    //     server: imageRegistryServer
+    //     username: imageRegistryUsername
+    //     password: imageRegistryPassword      
+    //   }
+    // ]
     osType: 'Linux'
     restartPolicy: 'Never'
     sku: 'Standard'
