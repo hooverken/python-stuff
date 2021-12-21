@@ -26,8 +26,9 @@ try:
 except ResourceNotFoundError:
     print("Blob not found.")
 
-tempfile.close()
 Image.open(tempFile).rotate(90).save(tempFile)
+
+print("Rotated image saved to: " + tempFile.name)
 
 # Create a blob client using the local file name as the name for the blob
 outputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_OUTPUT_CONTAINER, blob=tempFile.name)
