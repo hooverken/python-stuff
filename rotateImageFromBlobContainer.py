@@ -18,7 +18,7 @@ default_credential = DefaultAzureCredential()
 
 blob_service_client = BlobServiceClient(account_url=f"https://{AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net", credential=default_credential)
 
-tempFile = tempfile.NamedTemporaryFile()
+
 
 inputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
 try:
@@ -29,9 +29,10 @@ except ResourceNotFoundError:
 pieces = AZURE_BLOB.split('.')
 pieceCount = len(pieces)
 inputFileNameExtension = pieces[pieceCount-1]
+tempFile = tempfile.NamedTemporaryFile(suffix=inputFileNameExtension)
 
 print("Input file has type " + inputFileNameExtension)
-Image.open(tempFile,formats=(inputFileNameExtension)).rotate(90).save(tempFile)
+Image.open(tempFile).rotate(90).save(tempFile)
 
 print("Rotated image saved to: " + tempFile.name)
 
