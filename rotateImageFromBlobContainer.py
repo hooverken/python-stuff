@@ -26,8 +26,9 @@ try:
 except ResourceNotFoundError:
     print("Blob not found.")
 
-print("filename has " + (str)AZURE_BLOB.split('.').count + " elements")
-inputFileNameExtension = AZURE_BLOB.split('.')[AZURE_BLOB.split('.').count-1]
+pieces = AZURE_BLOB.split('.')
+pieceCount = len(pieces)
+inputFileNameExtension = pieces[pieceCount-1]
 
 print("Input file has type " + inputFileNameExtension)
 Image.open(tempFile,formats=(inputFileNameExtension)).rotate(90).save(tempFile)
@@ -43,3 +44,4 @@ print("\nUploading to Azure Storage as blob:\n\t" + tempFile.name)
 with open(tempFile, "rb") as data:
     outputfile_blob_client.upload_blob(data)
 
+print("Upload of " + tempFile.name + " to Azure Storage complete.\n")
