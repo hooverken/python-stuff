@@ -3,7 +3,7 @@
 
 import os
 import tempfile
-from PIL import Imagea
+from PIL import Image
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 
