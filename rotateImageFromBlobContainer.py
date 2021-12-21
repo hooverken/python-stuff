@@ -26,7 +26,7 @@ try:
 except ResourceNotFoundError:
     print("Blob not found.")
 
-print("filename has " + AZURE_BLOB.split('.').count + " elements")
+print("filename has " + (str)AZURE_BLOB.split('.').count + " elements")
 inputFileNameExtension = AZURE_BLOB.split('.')[AZURE_BLOB.split('.').count-1]
 
 print("Input file has type " + inputFileNameExtension)
