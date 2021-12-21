@@ -3,7 +3,7 @@
 
 import os
 import tempfile
-from PIL import Image
+from PIL import Imagea
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 
@@ -18,26 +18,13 @@ default_credential = DefaultAzureCredential()
 
 blob_service_client = BlobServiceClient(account_url=f"https://{AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net", credential=default_credential)
 
-# Create a temporary file with the same extention (type) as the source file.  This will help Pillow
-# interpret the file as the correct image type when loading it.
-# pieces = AZURE_BLOB.split('.')
-# pieceCount = len(pieces)
-# inputFileNameExtension = pieces[pieceCount-1]
-# tempFile = tempfile.NamedTemporaryFile(suffix=inputFileNameExtension)
-
-# Download the blob to the temporary file
-# try:
-#     tempFile.write(inputfile_blob_client.download_blob().readall())
-# except ResourceNotFoundError:
-#     print("Blob not found.")
-
 inputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
 
 with open(AZURE_BLOB, "wb") as my_blob:
     download_stream = inputfile_blob_client.download_blob()
     my_blob.write(download_stream.readall())
 
-# Open the file and rotate the image 90 degrees (counterclockwise), then save it back to disk
+# Open the file and rotate the image 90 degrees (counterclockwise), then save it using the new name
 NEW_BLOB_NAME = "ROTATED-" + AZURE_BLOB
 Image.open(AZURE_BLOB).rotate(90).save(NEW_BLOB_NAME)
 
