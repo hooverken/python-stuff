@@ -20,11 +20,21 @@ blob_service_client = BlobServiceClient(account_url=f"https://{AZURE_STORAGE_ACC
 
 tempFile = tempfile.NamedTemporaryFile()
 
-blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
+inputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
 try:
-    blob_data = blob_client.download_blob()
+    tempFile.write(inputfile_blob_client.download_blob().readall())
 except ResourceNotFoundError:
     print("Blob not found.")
 
-print(tempFile.name)
-print(blob_data.name)
+tempfile.close()
+Image.open(tempFile).rotate(90).save(tempFile)
+
+# Create a blob client using the local file name as the name for the blob
+outputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_OUTPUT_CONTAINER, blob=tempFile.name)
+
+print("\nUploading to Azure Storage as blob:\n\t" + tempFile.name)
+
+# Upload the created file
+with open(tempFile, "rb") as data:
+    outputfile_blob_client.upload_blob(data)
+
