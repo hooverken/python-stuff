@@ -26,11 +26,12 @@ blob_service_client = BlobServiceClient(account_url=f"https://{AZURE_STORAGE_ACC
 # tempFile = tempfile.NamedTemporaryFile(suffix=inputFileNameExtension)
 
 # Download the blob to the temporary file
-# inputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
 # try:
 #     tempFile.write(inputfile_blob_client.download_blob().readall())
 # except ResourceNotFoundError:
 #     print("Blob not found.")
+
+inputfile_blob_client = blob_service_client.get_blob_client(container=AZURE_INPUT_CONTAINER, blob=AZURE_BLOB)
 
 with open(AZURE_BLOB, "wb") as my_blob:
     download_stream = inputfile_blob_client.download_blob()
