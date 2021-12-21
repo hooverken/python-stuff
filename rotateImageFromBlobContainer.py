@@ -26,7 +26,9 @@ try:
 except ResourceNotFoundError:
     print("Blob not found.")
 
-Image.open(tempFile).rotate(90).save(tempFile)
+inputFileNameExtension = AZURE_BLOB.split('.')[AZURE_BLOB.split('.').count-1]
+print("Ihnput file has type " + inputFileNameExtension)
+Image.open(tempFile,formats=(inputFileNameExtension)).rotate(90).save(tempFile)
 
 print("Rotated image saved to: " + tempFile.name)
 
